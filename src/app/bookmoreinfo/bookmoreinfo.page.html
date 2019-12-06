@@ -1,0 +1,84 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-icon name="arrow-round-back"  style="margin:0 10px 0 10px;" (click)="goback()" ></ion-icon>
+      <span>{{book.name}}</span>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-item lines="none">
+      <ion-thumbnail slot="start" style="zoom: 2.0;height: 70px;width: 50px;margin-left: -10px;margin-right: 5px;">
+          <ion-img [src]="book.image" ></ion-img>
+      </ion-thumbnail>
+      <div *ngFor="let us of users">
+      <div *ngFor="let sh of share">
+      <div *ngFor="let ca of categories">
+      <ion-label text-wrap *ngIf="us.id==book.owner_id && sh.book_id==book.id && book.category_id==ca.id">
+        <h4>
+          <p>Name: <strong routerLink="/bookmoreinfo/{{book.id}}">{{book.name}}</strong> </p>
+        <p>Owner: <strong routerLink="/view-info-user/{{us.id}}">{{us.firstname}} {{us.lastname}}</strong> </p> 
+        <p>ISBN: {{book.isbn}}</p>
+        <p>Author: {{book.author}}</p>
+        <p>Category: {{ca.name}}</p>
+        <P>Description: {{book.description}}</P>
+        <p>{{sh.startdate | date: 'MMM dd, yyyy'}} - {{sh.enddate | date: 'MMM dd, yyyy'}}</p>
+      </h4>
+      <ion-button [disabled]="ReqConditon.book_id==book.id && (ReqConditon.isaccepted==false)" (click)="sendRequest(book.id)"> Request Book
+          <ion-icon ios="ios-send" md="md-send" ></ion-icon>
+      </ion-button>
+      <div>
+        <ng-template [ngIf]="ReqConditon.book_id==book.id && (ReqConditon.isaccepted==false)">
+          Sorry!!!The owner disagreed to lend this book
+        </ng-template>
+      </div>
+      
+      </ion-label>
+    </div>
+    </div>
+    </div>
+    </ion-item>
+    <div><strong>Comments</strong></div>
+    
+      <textarea placeholder="Leave your comment" rows="3" style="width: 100%"
+      type="text" [(ngModel)]="content" #ctl="ngModel"></textarea>
+      <input class="btn-success" style="float: right;"  type="Submit" (click)="postComment(book.id, content)">
+    <br> <br><br><br>
+    <div *ngFor="let rev of reviewsByBook" >
+      <ul *ngFor="let us of users">
+        <li *ngIf="rev.reviewer_id==us.id" style="list-style-type: none; margin: -20px 0 0 -40px;">
+          <ion-list>
+              <ion-item lines="none">
+                  <ion-avatar slot="start" routerLink="/view-info-user/{{us.id}}">
+                      <img src={{us.avatar}}>
+                    </ion-avatar>
+                    <ion-label >
+                     <div><b routerLink="/view-info-user/{{us.id}}">{{us.firstname}} {{us.lastname}}</b> <span ><p style="float: right; font: size 0.55">
+                      {{rev.change_datetime|date:'dd/MM/yyyy h:mm a'}}
+                     </p></span> 
+                    </div> 
+                    <div>
+                      <p text-wrap style="color: black; margin-top: 5px">{{rev.content}} 
+                        <span *ngIf="rev.reviewer_id==3" style="float: right">
+                            <ion-fab  slot="end" >
+                                <ion-fab-button color="light" style="zoom: 0.5;">
+                                  <ion-icon name="more"></ion-icon>
+                                </ion-fab-button>
+                                <ion-fab-list side="start">
+                                  <ion-fab-button color="secondary" (click)="editComment(rev.id)">
+                                    <ion-icon name="edit"></ion-icon>
+                                  </ion-fab-button>
+                                  <ion-fab-button color="danger" (click)="delete(rev.id)">
+                                    <ion-icon name="trash"></ion-icon>
+                                  </ion-fab-button>
+                                </ion-fab-list>
+                              </ion-fab>
+                        </span>
+                        </p>
+                    </div>
+                    </ion-label >
+              </ion-item>
+            </ion-list>
+        </li>
+      </ul>
+    </div>
+  </ion-content>

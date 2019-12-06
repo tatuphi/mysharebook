@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="arrow-round-back"  style="margin:0 10px 0 10px;" routerLink="/tabs/tab1" ></ion-icon>
+    <ion-title>Category</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+      <ion-row >
+        <ion-col size="5" *ngFor="let ca of categories" style="margin-left: 20px;">
+          <div>
+              <div class="card bg-dark" style="height: 120px; width: 90px;" (click)="openModal(ca.id)">
+                <img class="card-img" src="https://kbimages1-a.akamaihd.net/953cd26a-e746-463a-9865-bf770280592d/1200/1200/False/the-little-prince-21.jpg" alt="Card image" 
+                  title="{{ca.name}}"> 
+              </div>
+              <label style="font-size: small;"> <b>{{ca.name}}</b></label>
+          </div>
+        </ion-col>
+      </ion-row>
+      </ion-grid>
+</ion-content>

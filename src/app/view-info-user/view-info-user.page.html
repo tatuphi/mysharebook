@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-icon name="arrow-round-back"  style="margin:0 10px 0 10px;" (click)="goback()" ></ion-icon>
+    <ion-title>{{user.firstname}} {{user.lastname}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="none">
+  <ion-thumbnail slot="start" style="zoom: 2.0">
+    <ion-img [src]="user.avatar"></ion-img>
+  </ion-thumbnail>
+  <ion-label>
+    <h4>{{user.firstname}} {{user.lastname}}</h4>
+    <p>Gender: 
+      <span>
+        <ng-template [ngIf]="user.gender == true">Female</ng-template>
+        <ng-template [ngIf]="user.gender == false">Male</ng-template>
+        <ng-template [ngIf]="user.gender == null"></ng-template>
+    </span>
+    </p>
+    <p>Email: {{user.email}}</p>
+    <p>Date of birth: {{user.birthday | date:'dd/MM/yyyy'}}</p>
+  </ion-label>
+  <hr>
+</ion-item>
+
+  <!--những cuốn sách của user này 
+  đã share or đang share -->
+
+  <div style="margin-top: 10px" >
+      <!-- <div *ngIf="user.Gender==Male;else other_content">
+          <strong> Her books</strong>
+      </div>
+      <ng-template #other_content><strong>His books</strong></ng-template> -->
+      <div>
+        <ng-template [ngIf]="user.gender == true"><b> Her books</b></ng-template>
+        <ng-template [ngIf]="user.gender == false"><b> His books</b></ng-template>
+        <ng-template [ngIf]="user.gender == null"><b> Books</b></ng-template>
+      </div>
+    </div>
+  <ion-card>
+    <ion-grid>
+      <!-- phai co dk giong tab1 
+      chua finish -->
+      <ion-row >
+        <ion-col *ngFor="let b of books" >
+            <div *ngFor="let ss of sshare">
+                <div *ngIf="b.id==ss.book_id">
+                  <div class="card bg-dark" style="height: 120px; width: 90px;" >
+                      <img class="card-img" style="height: 118px; width: 90px;" routerLink="/bookmoreinfo/{{b.id}}" [src]="b.image" alt="Card image" 
+                        title="{{b.name}}"> 
+                  </div>
+                  <label style="font-size: small;"> <b>{{b.name}}</b></label>
+                  <div class="text-muted" style="font-size: small; margin-top: -5px;">by {{b.author}}</div>
+                </div>
+              </div>
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>

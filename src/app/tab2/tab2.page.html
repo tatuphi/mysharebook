@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>My Library ()</ion-title>
+      <ion-item lines="none" slot="end" ><ion-button shape="round" style="text-transform: none;" routerLink="/addmybook" >Add Book</ion-button></ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngFor="let bo of books">
+    <ion-list >
+        <ion-item >
+          <ion-thumbnail routerLink="/bookdetail/{{bo.id}}" slot="start" style="zoom: 2.0">
+            <ion-img [src]="bo.image"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <h4 routerLink="/bookdetail/{{bo.id}}">{{bo.name}}</h4>
+            <p>by {{bo.author}}</p>
+            <p>ISBN:{{bo.isbn}}</p>
+            <ion-icon  name="create" size="small" color="dark" routerLink="/editmybook/{{bo.id}}"></ion-icon>
+            <ion-icon name="trash" size="small" color="dark" (click)="delete(bo.id)"></ion-icon>
+            <ion-icon  name="share" size="small" color="dark" (click)="share(bo.id)" ></ion-icon>
+            
+
+            <!-- <span *ngFor="let sh of sshare"> -->
+                <!-- <span *ngIf="bo.id!=sh.book_id ||(sh.book_id==bo.id && (sh.enddate| date:'yyyyMMdd') < (today|date:'yyyyMMdd')) ">
+                    <ion-icon  name="share" size="small" color="dark" (click)="share(bo.id)" ></ion-icon>
+                </span> -->
+                <!-- <span *ngIf="sh.book_id==bo.id && (sh.enddate| date:'yyyyMMdd') < (today|date:'yyyyMMdd')">
+                    <ion-icon  name="share" size="small" color="dark"  (click)="share(bo.id)" ></ion-icon>
+                </span> -->
+                <!-- <span *ngIf="(sh.book_id==bo.id)">
+                    <ion-icon  name="share" size="small" color="dark" (click)="share(bo.id)" ></ion-icon>
+                </span>
+                
+            </span> -->
+          </ion-label>
+        </ion-item>
+      </ion-list>
+  </div>
+</ion-content>
+
+

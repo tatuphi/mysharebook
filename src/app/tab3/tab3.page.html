@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile</ion-title> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <div id="example1">    
+  <div class="container">
+      <ion-avatar style="margin:auto; zoom: 2.5;">
+          <img src="{{user.avatar}}">
+      </ion-avatar>
+      <ion-icon name="camera" class="btnn" style="position: absolute; text-align: center;"></ion-icon>
+    </div>
+    </div>
+  
+  
+  <ion-grid class="container">
+      <ion-row>
+          <ion-col size="2.5">
+            <ion-fab-button color="light" style="zoom: 0.7">
+                <ion-icon name="contact"></ion-icon>
+              </ion-fab-button>
+          </ion-col>
+          <ion-col size="9.5"> 
+              <ion-label position="floating"><strong>First name</strong></ion-label>
+              <ion-input  type="text" [(ngModel)]="user.firstname" #ctl="ngModel"></ion-input>
+          </ion-col>
+            
+        </ion-row>
+        <ion-row>
+            <ion-col size="2.5">
+              <ion-fab-button color="light" style="zoom: 0.7">
+                  <ion-icon name="happy"></ion-icon>
+                </ion-fab-button>
+            </ion-col>
+            <ion-col size="9.5"> 
+                <ion-label position="floating"><strong>Last name</strong></ion-label>
+                <ion-input type="text" [(ngModel)]="user.lastname" #ctl="ngModel"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col size="2.5">
+                  <ion-fab-button color="light" style="zoom: 0.7">
+                      <ion-icon name="mail"></ion-icon>
+                    </ion-fab-button>
+                </ion-col>
+                <ion-col size="9.5"> 
+                    <ion-label position="floating"><strong>Email</strong></ion-label>
+                    <ion-input type="text" disabled="true" value={{user.email}} ></ion-input>
+                </ion-col>
+              </ion-row>
+          
+          <ion-row>
+              <ion-col size="2.5">
+                  <ion-fab-button color="light" style="zoom: 0.7">
+                      <ion-icon name="recording"></ion-icon>
+                    </ion-fab-button>
+                </ion-col>
+                <ion-col size="9.5"> 
+                    <ion-label position="floating"><strong>Gender</strong></ion-label>
+                    <ion-row class="radio">
+                      <ion-col size="5"><input type="radio" name="optradio" checked style="margin-right:10px">Female</ion-col>
+                      <ion-col size="5" style="margin-left: 20px"><input type="radio" name="optradio" style="margin-right:10px">Male</ion-col>
+                    </ion-row>
+                    <!-- <ion-input type="text" [(ngModel)]="user.Gender" #ctl="ngModel"></ion-input> -->
+                </ion-col>
+              </ion-row>
+
+          <ion-row>
+            <ion-col size="2.5">
+                <ion-fab-button color="light" style="zoom: 0.7">
+                    <ion-icon name="calendar"></ion-icon>
+                  </ion-fab-button>
+              </ion-col>
+              <ion-col size="9.5"> 
+                  <ion-label position="floating"><strong>Date of birth</strong></ion-label>
+                  <!-- <ion-input type="text" [(ngModel)]="user.Birthday" #ctl="ngModel"></ion-input> -->
+                  <ion-datetime displayFormat="DD/MM/YYYY" style="margin-left: -20px" value="user.birthday " [(ngModel)]="user.birthday"></ion-datetime>
+              </ion-col>
+            </ion-row>
+
+            <section>
+              <ion-button expand="block" (click)="update()">Update profile</ion-button>
+            </section>
+
+
+  </ion-grid>
+  
+  
+  
+    
+</ion-content>

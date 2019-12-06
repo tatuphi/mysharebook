@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-icon name="arrow-round-back"  style="margin:0 10px 0 10px;" routerLink="/tabs/tab2"  ></ion-icon>
+      <span > Add My Book</span>
+      <ion-item lines="none" slot="end" >
+        <ion-icon name="camera" (click)="scan()"></ion-icon>
+      </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding-right >
+    <!-- <ion-item>
+        <ion-label fixed>Number</ion-label>
+        <ion-input type="text" value="" [(ngModel)]="num"></ion-input>
+      </ion-item> -->
+  <ion-item lines="none">
+    <ion-label position="floating"><strong>Image</strong></ion-label>
+    <ion-input placeholder="Enter Image" type="text" [(ngModel)]="image" #ctl="ngModel"  ></ion-input>
+  </ion-item>
+    <ion-item lines="none">
+        <ion-label position="floating"><strong>ISBN</strong></ion-label>
+        <ion-input placeholder="Enter ISBN" type="text" [(ngModel)]="isbn" #ctl="ngModel"  ></ion-input>
+      </ion-item>
+    <ion-item lines="none">
+        <ion-label position="floating"><strong>Name</strong></ion-label>
+        <ion-input placeholder="Enter Name" type="text" [(ngModel)]="bookname" #ctl="ngModel" required></ion-input>
+      </ion-item>
+    <ion-item lines="none">
+        <ion-label position="floating"><strong>Author</strong></ion-label>
+        <ion-input placeholder="Enter Author" type="text" [(ngModel)]="author" #ctl="ngModel" required></ion-input>
+      </ion-item>
+
+    <ion-item lines="none" >
+      <ion-label position="floating" style="margin-bottom: 40px; margin-top: -20px;" ><strong>Category</strong></ion-label>
+          <select [(ngModel)]="category" #ctl="ngModel" class="custom-select">
+            <option *ngFor= "let ca of categories" >
+             {{ca.id}}
+            </option>
+          </select>
+      </ion-item>
+    
+    <ion-item lines="none">
+        <ion-label position="floating"><strong>Description</strong></ion-label>
+        <ion-input placeholder="Enter Description" type="text" [(ngModel)]="description" #ctl="ngModel" ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-button slot="end" size="small" type="submit" (click)="saveBook(image, num, bookname,author,category,description)" color="success" 
+        >Submit</ion-button>
+      </ion-item>
+    
+</ion-content>
+

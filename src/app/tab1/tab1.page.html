@@ -1,0 +1,105 @@
+
+    <ion-app>
+      <ion-menu side="start">
+        <ion-header>
+          <ion-toolbar translucent>
+            <ion-title>Menu</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <ion-list>
+            <ion-item >
+              <ion-icon name="home" slot="start"></ion-icon>
+              <ion-label routerLink="/tabs/tab1">Home</ion-label>
+            </ion-item>
+            <ion-item routerLink="/tabs/tab3">
+              <ion-icon name="person" slot="start"></ion-icon>
+              <ion-label>Profile</ion-label>
+            </ion-item>
+            <ion-item routerLink="/tabs/tab2">
+              <ion-icon name="book" slot="start"></ion-icon>
+              <ion-label>My Library</ion-label>
+            </ion-item>
+            <ion-item routerLink="/tabs/tab4">
+                <ion-icon name="notifications" slot="start"></ion-icon>
+              <ion-label> Notifications</ion-label>
+            </ion-item>
+            <ion-item routerLink="/category">
+              <ion-icon name="grid" slot="start"></ion-icon>
+            <ion-label> Category</ion-label>
+          </ion-item>
+          <ion-item routerLink="/activity">
+            <ion-icon name="checkbox" slot="start"></ion-icon>
+          <ion-label> My activity</ion-label>
+        </ion-item>
+        <ion-item routerLink="/logout">
+          <ion-icon name="log-out" slot="start"></ion-icon>
+          <ion-label> Logout</ion-label>
+      </ion-item>
+        
+          </ion-list>
+        </ion-content>
+      </ion-menu>
+  
+      <div class="ion-page" main>
+        <ion-header translucent>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+            <ion-title>My Sharing Book</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        
+        <ion-content padding>
+            <ion-searchbar style="font-size: 10px !important; " 
+              placeholder="Search name, author, isbn"
+              [(ngModel)]="myInput"
+              [showCancelButton]="shouldShowCancel"
+              (ionInput)="onInput($event)"
+              (ionCancel)="onCancel($event)">
+            </ion-searchbar>
+          <div *ngIf="user != undefined">
+            Welcome {{ user["firstname"]  }} {{ user["lastname"]  }}
+        </div>
+        
+        <ion-grid>
+            <!-- DK: book thuoc ds sach dc share trong thoi gian hieu luc
+                          sach chua dc request or da request nhung ko dc accept -->
+              <ion-row>
+                <ion-col size="5" *ngFor="let bo of books" style="margin-left: 20px;">
+                  <div *ngFor="let noReq of NoRequest">
+                    <div *ngIf="noReq.book_id==bo.id && (noReq.enddate| date:'yyyyMMdd') >= (today|date:'yyyyMMdd')">
+                      <div class="card bg-dark" style="max-height: 120px; width: 90px;" >
+                        <img class="card-img" style="height: 100px; width: 90px;" routerLink="/bookmoreinfo/{{bo.id}}" [src]="bo.image" alt="Card image" 
+                          title="{{bo.name}}"> 
+                      </div>
+                      <label style="font-size: small;"> <b>{{bo.name}}</b></label>
+                      <div class="text-muted" style="font-size: small; ">by {{bo.author}}</div>
+                    </div>
+                  </div>
+                </ion-col>
+
+                <ion-col size="5" *ngFor="let bo of books" style="margin-left: 20px;">
+                  <div *ngFor="let bshare of booksShared">
+                      <div *ngFor="let req of requests">
+                          <ng-template [ngIf]="bo.id==bshare.book_id && bshare.book_id==req.book_id && (bshare.enddate| date:'yyyyMMdd') >= (today|date:'yyyyMMdd')&& (req.isaccepted ==false||(req.isaccepted==true && req.isreturned==true))">
+                              <div class="card bg-dark" style="max-height: 120px; width: 90px;" >
+                                  <img class="card-img" style="height: 100px; width: 90px;" routerLink="/bookmoreinfo/{{bo.id}}" [src]="bo.image" alt="Card image" 
+                                    title="{{bo.name}}"> 
+                                </div>
+                                <label style="font-size: small;"> <b>{{bo.name}}</b></label>
+                            <div class="text-muted" style="font-size: small; ">by {{bo.author}}</div>
+                          </ng-template>
+                      </div>
+                    </div>
+                </ion-col>
+                    
+
+              </ion-row>
+              </ion-grid>
+        </ion-content>
+      </div>
+    </ion-app>
+
+

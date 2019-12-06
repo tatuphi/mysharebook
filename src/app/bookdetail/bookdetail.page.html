@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-icon name="arrow-round-back"  style="margin:0 10px 0 10px;" routerLink="/tabs/tab2" ></ion-icon>
+      <span>Book Detail</span>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <ion-card>
+      
+      <div *ngFor="let ca of categories">
+        <div *ngIf="book.category_id==ca.id">
+          <ion-card-header>
+              <ion-card-title style="text-align: center">{{book.name}}</ion-card-title>
+          </ion-card-header>
+  
+          <ion-card-content>
+              <div>
+                  <ion-img [src]="book.image"></ion-img>
+              </div>
+              
+              <ion-item lines="none">ISBN: {{book.isbn}}</ion-item>
+              <ion-item lines="none">Category: {{ca.name}}</ion-item>
+              <ion-item lines="none">Author: {{book.author}}</ion-item>
+              <ion-item lines="none">Description: {{book.description}}</ion-item>
+              <ion-buttons>
+                  <ion-button  routerLink="/editmybook/{{book.id}}">
+                    <ion-icon slot="icon-only" name="create"></ion-icon>
+                  </ion-button>
+                  <ion-button  (click)="delete(book.id)">
+                    <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
+                  </ion-button>
+                  <ion-button  >
+                      <ion-icon slot="icon-only" name="share"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+              </ion-card-content>
+              
+        </div>
+        
+      </div>
+          
+        
+    </ion-card>
+  </ion-content>
+  

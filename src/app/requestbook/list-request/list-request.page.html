@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>List requests</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content fullscreen>
+  <div *ngFor="let re of requests">
+    <div *ngFor=" let bo of booksByOwner" >
+      <ul *ngFor="let us of users">
+        <!-- request gửi tới người chủ cuốn sách -->
+        <li *ngIf="re.book_id==bo.id && re.borrower_id==us.id " style="list-style-type: none; margin: -20px 0 0 -40px;">
+          <ion-list>
+            <ion-item-sliding>
+              <ion-item>
+                <ion-avatar slot="start">
+                  <img src={{us.avatar}}>
+                </ion-avatar>
+                <ion-label>
+                  <p text-wrap style="color: black"><strong routerLink="/view-info-user/{{us.id}}"> {{us.firstname}}</strong><strong>{{us.lastname}} </strong> requests to borrow a book named <strong>{{bo.name}}</strong> from {{re.startdate | date:'MMM dd, yyyy'}}  to {{re.enddate|date:'MMM dd, yyyy'}}</p>
+                </ion-label >
+              </ion-item>
+    
+              <ion-item-options side="start" >
+                  <button ion-button (click)="agree(re.id)">
+                    <ion-icon name="happy" style="zoom:2.0;"></ion-icon>
+                    <div>Agree</div>
+                    </button>
+              </ion-item-options>
+    
+              <ion-item-options side="end" >
+                  <button ion-button (click)="disagree(re.id)">
+                    <ion-icon name="sad" style="zoom:2.0;"></ion-icon>
+                    <div>Disagree</div>
+                  </button>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-list>
+        </li>
+    </ul>
+    </div>
+  </div>
+
+  <!-- message thông báo cho người mượn cuốn sách xem là dc accept hay chưa??? -->
+  <div *ngFor=" let req of requestsByUserID">
+    <div *ngFor=" let b of books">
+      <ul *ngFor="let us of users">
+        <!-- request gửi tới người muon cuốn sách -->
+        <li *ngIf="req.book_id==b.id && b.owner_id==us.id" style="list-style-type: none; margin: -20px 0 0 -40px;">
+          <ion-list>
+                <ion-item *ngIf="req.isaccepted==true">
+                    <ion-thumbnail slot="start" style="margin-right:5px">
+                        <img style="width:50px" src="{{b.image}}">
+                      </ion-thumbnail>
+                    <ion-label >
+                      <p text-wrap style="color: black">Congrats!!!<strong class="csshover" routerLink="/view-info-user/{{us.id}}"> {{us.firstname}} {{us.lastname}} </strong> agree to lend a book named "<strong routerLink="/bookmoreinfo/{{b.id}}">{{b.name}}</strong>" from {{req.startdate | date:'MMM dd, yyyy'}} to {{req.enddate|date:'MMM dd, yyyy'}} </p>
+                    </ion-label >
+                  </ion-item>
+                <ion-item *ngIf="req.isaccepted==false">
+                    <ion-thumbnail slot="start" style="margin-right:5px">
+                        <img style="width:50px" src="{{b.image}}">
+                      </ion-thumbnail>
+                    <ion-label>
+                      <p text-wrap style="color: black">So sorry!!!<strong routerLink="/view-info-user/{{us.id}}"> {{us.firstname}} {{us.lastname}} </strong> disagree to lend a book named "<strong routerLink="/bookmoreinfo/{{b.id}}">{{b.name}}</strong>" </p>
+                    </ion-label >
+                </ion-item>
+          </ion-list>
+        </li>
+    </ul>
+    </div>
+  </div>
+    
+  </ion-content>
+

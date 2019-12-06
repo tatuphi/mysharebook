@@ -1,0 +1,69 @@
+<ion-header>
+    <ion-toolbar>
+        <!-- <ion-buttons slot="secondary">
+          <ion-button>Messages (1)</ion-button>
+        </ion-buttons> -->
+
+        <ion-buttons slot="secondary" ><ion-button text-wrap style="color: black;"><strong> {{cname}}</strong></ion-button></ion-buttons>
+
+        <ion-buttons slot="primary">
+          <ion-button (click)="closeModal()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <!-- phai co dk giong tab1 
+    chua finish -->
+      <ion-row >
+        <!-- <ion-col size="5" *ngFor="let ca of booksbycategory" style="margin-left: 20px;">
+          <div *ngFor="let bshare of booksShared">
+            <div *ngFor="let req of requests">
+                <div  *ngIf="ca.id==bshare.book_id && (bshare.enddate| date:'yyyyMMdd') >= (today|date:'yyyyMMdd') && ca.id==req.book_id
+                    && ((bshare.book_id!=req.book_id) || (bshare.book_id==req.book_id && (req.isaccepted ==false || req.isreturned==true)) )">
+                    <div class="card bg-dark" style="height: 120px; width: 90px;" >
+                      <img class="card-img" routerLink="/bookmoreinfo/{{ca.id}}" [src]="ca.image" alt="Card image" 
+                        title="{{ca.name}}"> 
+                    </div>
+                    <label style="font-size: small;"> <b>{{ca.name}}</b></label>
+                    <div class="text-muted" style="font-size: small; margin-top: -5px;">by {{ca.author}}</div>
+                </div>
+            </div>
+
+          </div>
+          
+        </ion-col> -->
+        <ion-col size="5" *ngFor="let ca of booksbycategory" style="margin-left: 20px;">
+            <div *ngFor="let bshare of booksShared">
+              <div *ngFor="let req of requests">
+                  <div  *ngIf="ca.id==bshare.book_id && bshare.book_id==req.book_id && (req.isaccepted ==false|| (req.isaccepted==true && req.isreturned==true))">
+                      <div class="card bg-dark" style="height: 120px; width: 90px;" >
+                        <img class="card-img" style="height: 100px; width: 90px;" routerLink="/bookmoreinfo/{{ca.id}}" [src]="ca.image" alt="Card image" 
+                          title="{{ca.name}}"> 
+                      </div>
+                      <label style="font-size: small;"> <b>{{ca.name}}</b></label>
+                      <div class="text-muted" style="font-size: small; margin-top: -5px;">by {{ca.author}}</div>
+                  </div>
+              </div>
+  
+            </div>
+            
+          </ion-col>
+          <ion-col size="5" *ngFor="let ca of booksbycategory" style="margin-left: 20px;">
+              <div *ngFor="let noReq of NoRequest">
+                    <div  *ngIf="ca.id==noReq.book_id && (noReq.enddate| date:'yyyyMMdd') >= (today|date:'yyyyMMdd')">
+                        <div class="card bg-dark" style="height: 120px; width: 90px;" >
+                          <img class="card-img" style="height: 100px; width: 90px;" routerLink="/bookmoreinfo/{{ca.id}}" [src]="ca.image" alt="Card image" 
+                            title="{{ca.name}}"> 
+                        </div>
+                        <label style="font-size: small;"> <b>{{ca.name}}</b></label>
+                        <div class="text-muted" style="font-size: small; margin-top: -5px;">by {{ca.author}}</div>
+                    </div>
+              </div>
+            </ion-col>
+      </ion-row>
+      </ion-grid>
+</ion-content>
+
+

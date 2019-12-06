@@ -1,0 +1,104 @@
+
+<ion-header>
+  <ion-toolbar>
+  <ion-icon name="arrow-round-back"  style="margin:0 10px 0 10px;" routerLink="/tabs/tab1" ></ion-icon>
+  <ion-title>My Activity</ion-title>
+</ion-toolbar>
+</ion-header>
+  
+<ion-content >
+    <ion-toolbar>
+        <ion-segment (ionChange)="segmentChanged()" [(ngModel)]="segment" color="primary">
+          <ion-segment-button value="0">
+            Shared Books
+          </ion-segment-button>
+          <ion-segment-button value="1">
+            Borrowed Books
+          </ion-segment-button>
+        </ion-segment>
+      </ion-toolbar>
+    
+      <ion-slides #slides (ionSlideDidChange)="slideChanged()" >
+        <!-- sách đã share
+      info: tên sách, người mượn, from to-->
+        <ion-slide >
+          <div *ngFor="let BO of booksByOwner">
+              <div *ngFor="let sh of sshare">
+                  <div *ngFor="let re of requests">
+                    <div *ngFor="let b of books">
+                      <div *ngFor="let us of users">
+                        <ion-list *ngIf="BO.id==sh.book_id && sh.book_id==re.book_id && re.borrower_id==us.id && re.isaccepted==true && BO.id==b.id">
+                            <ion-item lines="full" >
+                              <ion-thumbnail routerLink="/bookdetail/{{b.id}}" slot="start" style="zoom: 2.0;max-width: 45px;">
+                                <ion-img [src]="b.image" style="margin-right: -10px;"></ion-img>
+                              </ion-thumbnail>
+                              <ion-label >
+                                <h1 routerLink="/bookdetail/{{b.id}}">{{b.name}}</h1>
+                                <p>by {{b.author}}</p>
+                                <p>Book shared to </p>
+                                <ion-item lines="none"> 
+                                    <ion-avatar style="margin:-10px" slot="start">
+                                      <img [src]="us.avatar">
+                                    </ion-avatar>
+                                    <ion-label>
+                                      <span routerLink="/view-info-user/{{us.id}}" >{{us.firstname}} {{us.lastname}}</span>
+                                      <p>{{re.startdate | date:'MMM dd, yyyy'}} - {{re.enddate|date:'MMM dd, yyyy'}}</p>
+                                    </ion-label>
+                                  </ion-item>
+                              </ion-label>
+                            </ion-item>
+                          </ion-list>
+                        </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          
+        </ion-slide>
+        <ion-slide>
+          <!-- sách đã mượn
+      info:tên sách, chủ sách, from to, return sách (before limit, to limit auto return) -->
+          <div *ngFor="let reU of reqByUser">
+              <div *ngFor="let sh of sshare">
+                    <div *ngFor="let b of books">
+                      <div *ngFor="let us of users">
+                        <ion-list *ngIf="reU.book_id==sh.book_id && reU.isaccepted==true && reU.book_id==b.id && b.owner_id==us.id">
+                            <ion-item lines="full" >
+                              <ion-thumbnail routerLink="/bookdetail/{{b.id}}" slot="start" style="zoom: 2.0;max-width: 45px;">
+                                <ion-img [src]="b.image" style="margin-right: -10px;"></ion-img>
+                              </ion-thumbnail>
+                              <ion-label >
+                                <h1 routerLink="/bookmoreinfo/{{b.id}}">{{b.name}}</h1>
+                                <p>by {{b.author}}</p>
+                                <p>Book borrowed from </p>
+                                <ion-item lines="none"> 
+                                    <ion-avatar style="margin:-10px" slot="start">
+                                      <img [src]="us.avatar">
+                                    </ion-avatar>
+                                    <ion-label>
+                                      <span routerLink="/view-info-user/{{us.id}}" >{{us.firstname}} {{us.lastname}}</span>
+                                      <p>{{reU.startdate | date:'MMM dd, yyyy'}} - {{reU.enddate|date:'MMM dd, yyyy'}}</p>
+                                    </ion-label>
+                                  </ion-item>
+                                  
+                                  <!-- chưa tới ngày trả nên hiện btn trả sách
+                                      đã trả hoặc qua ngày trả thì ko hiện btn nữa -->
+                                  <div *ngIf="(reU.enddate| date:'yyyyMMdd') >= (today|date:'yyyyMMdd'); else other">
+                                    <ion-button > Return Book
+                                      <ion-icon name="swap" md="md-send" ></ion-icon>
+                                    </ion-button>
+                                  </div>
+                                  <ng-template #other ><ion-label color="danger" style="text-align: right; margin-right: 20px;" >Returned</ion-label></ng-template>
+                          
+                              </ion-label>
+                            </ion-item>
+                          </ion-list>
+                        </div>
+                    </div>
+                  
+              </div>
+          </div>
+        </ion-slide>
+      </ion-slides>
+      
+</ion-content>

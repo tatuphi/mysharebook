@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="arrow-round-back"  style="margin:0 10px 0 10px;" routerLink="/tabs/tab2" ></ion-icon>
+    <span>Book Detail</span>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    
+    <ion-card-content>
+        <ion-item lines="none">
+            <ion-label position="floating"><strong>Image</strong></ion-label>
+            <ion-input placeholder="Enter Image URL" type="text" [(ngModel)]="book.image" #ctl="ngModel"></ion-input>
+          </ion-item>
+      <ion-item lines="none">
+        <ion-label position="floating"><strong>ISBN</strong></ion-label>
+        <ion-input placeholder="Enter ISBN" type="text" [(ngModel)]="book.isbn" #ctl="ngModel"  ></ion-input>
+      </ion-item>
+    <ion-item lines="none">
+        <ion-label position="floating"><strong>Name</strong></ion-label>
+        <ion-input placeholder="Enter Name" type="text" [(ngModel)]="book.name" #ctl="ngModel" required></ion-input>
+      </ion-item>
+    <ion-item lines="none">
+        <ion-label position="floating"><strong>Author</strong></ion-label>
+        <ion-input placeholder="Enter Author" type="text" [(ngModel)]="book.author" #ctl="ngModel" required></ion-input>
+      </ion-item>
+    <ion-item lines="none">
+        <ion-label position="floating" style="margin-bottom: 40px;margin-top: -20px;" ><strong>Category</strong></ion-label>
+          <select [(ngModel)]="book.category_id" #ctl="ngModel" class="custom-select">
+            <option *ngFor= "let ca of categories" >
+             {{ca.id}}
+            </option>
+          </select>
+      </ion-item>
+    
+    <ion-item lines="none">
+        <ion-label position="floating"><strong>Description</strong></ion-label>
+        <ion-input placeholder="Enter Description" type="text" [(ngModel)]="book.description" #ctl="ngModel" ></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-button slot="end" size="small" type="submit" (click)="update()" color="success" 
+        >Submit</ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
