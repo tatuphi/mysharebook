@@ -4,8 +4,11 @@ import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, NavController } from '@ionic/angular';
 import { Category } from '../models/book';
-// import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
 import { HttpClient } from '@angular/common/http';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+
 @Component({
   selector: 'app-add-mybook',
   templateUrl: './add-mybook.page.html',
@@ -18,6 +21,7 @@ export class AddMybookPage {
   owner: string='2';
   book: any;
   isbn: string='9786047732258';
+  myPhoto:any;
 
   // barcode
   num:string;
@@ -27,7 +31,8 @@ export class AddMybookPage {
     private alertCtrl: AlertController,
     public loadingController: LoadingController,
     public navCtrl: NavController, 
-    // private barcodeScanner: BarcodeScanner,
+    private barcodeScanner: BarcodeScanner,
+    private camera: Camera,
     private http: HttpClient) { }
   ngOnInit() {
     this.new_item_form = this.formBuilder.group({
@@ -38,12 +43,13 @@ export class AddMybookPage {
       description: new FormControl(''),
       category_id: new FormControl('')
     });
-    this.getCategories();
-    this.getBookByIsbnJson(this.isbn);
+    // this.getCategories();
+    // this.getBookByIsbnJson(this.isbn);
   }
   // goBack(){
   //   this.router.navigate(['/home']);
   // }
+  
   async presentAlert() {
     let alert = this.alertCtrl.create({
       header: 'Added Successfully',
@@ -81,12 +87,12 @@ export class AddMybookPage {
   }
 
   // new scan method
-  // scan() {
-  //   this.barcodeScanner.scan().then(data => {
-  //       // this is called when a barcode is found
-  //       this.num = data.text
-  //     });      
-  // }
+  scan() {
+    this.barcodeScanner.scan().then(data => {
+        // this is called when a barcode is found
+        this.num = data.text
+      });      
+  }
 
   async getBookByIsbnJson(num)
   {
@@ -105,4 +111,22 @@ export class AddMybookPage {
         loading.dismiss();
       });
   }
+  takePhoto(){
+    const options: CameraOptions = {
+      quality: 70,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+     // imageData is either a base64 encoded string or a file URI
+     // If it's base64 (DATA_URL):
+     this.myPhoto = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+     // Handle error
+    });
+  }
+  
 }
+

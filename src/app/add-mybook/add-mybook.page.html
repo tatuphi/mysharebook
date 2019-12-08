@@ -13,9 +13,13 @@
         <ion-label fixed>Number</ion-label>
         <ion-input type="text" value="" [(ngModel)]="num"></ion-input>
       </ion-item> -->
+      <ion-img [src]="myPhoto"></ion-img>
+      <!-- <p align="center"><img src="{{myPhoto}}" ></p> -->
   <ion-item lines="none">
     <ion-label position="floating"><strong>Image</strong></ion-label>
     <ion-input placeholder="Enter Image" type="text" [(ngModel)]="image" #ctl="ngModel"  ></ion-input>
+    <ion-icon name="camera" (click)="takePhoto()"></ion-icon>
+    <!-- <p align="center"><img src="{{myPhoto}}" ></p> -->
   </ion-item>
     <ion-item lines="none">
         <ion-label position="floating"><strong>ISBN</strong></ion-label>
@@ -45,7 +49,7 @@
       </ion-item>
 
       <ion-item lines="none">
-        <ion-button slot="end" size="small" type="submit" (click)="saveBook(image, num, bookname,author,category,description)" color="success" 
+        <ion-button slot="end" size="small" type="submit" (click)="saveBook(image, isbn, bookname,author,category,description)" color="success" 
         >Submit</ion-button>
       </ion-item>
     

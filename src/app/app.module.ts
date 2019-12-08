@@ -15,6 +15,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { AuthclientService } from './authclient.service';
 import { AuthclientGuard } from './authclient.guard';
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,8 @@ import { NativeStorage } from '@ionic-native/native-storage/ngx';
     SplashScreen,
     BarcodeScanner,
     NativeStorage,
+    Camera,
+
   ],
   bootstrap: [AppComponent]
 })

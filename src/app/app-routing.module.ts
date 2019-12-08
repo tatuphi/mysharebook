@@ -4,9 +4,11 @@ import { AuthclientGuard } from './authclient.guard';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'signin', pathMatch: 'full' },
-  { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
-  { path: 'signin', loadChildren: './signin/signin.module#SigninPageModule' },
+  { path: 'addmybook', loadChildren: './add-mybook/add-mybook.module#AddMybookPageModule' },
+
+  { path: '', redirectTo: 'addmybook', pathMatch: 'full' },
+  // { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
+  // { path: 'signin', loadChildren: './signin/signin.module#SigninPageModule' },
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
